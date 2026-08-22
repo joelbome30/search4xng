@@ -161,11 +161,15 @@ def get_engineref_from_category_list(  # pylint: disable=invalid-name
     disabled_engines: List[str],
 ) -> List[EngineRef]:
     result = []
+    search4xng_cfg = settings.get('search4xng', {})
+    content_categories = set(search4xng_cfg.get('content_categories', ()))
+    isolated_categories = set(search4xng_cfg.get('isolated_categories', ()))
     for categ in category_list:
         result.extend(
             EngineRef(engine.name, categ)
             for engine in categories[categ]
             if (engine.name, categ) not in disabled_engines
+            and not (categ in content_categories and isolated_categories.intersection(engine.categories))
         )
     return result
 
