@@ -3,7 +3,6 @@
 
 from collections import defaultdict
 from typing import Dict, List, Optional, Tuple
-from searx import settings
 from searx.exceptions import SearxParameterException
 from searx.webutils import VALID_LANGUAGE_CODE
 from searx.query import RawTextQuery
@@ -161,15 +160,11 @@ def get_engineref_from_category_list(  # pylint: disable=invalid-name
     disabled_engines: List[str],
 ) -> List[EngineRef]:
     result = []
-    search4xng_cfg = settings.get('search4xng', {})
-    content_categories = set(search4xng_cfg.get('content_categories', ()))
-    isolated_categories = set(search4xng_cfg.get('isolated_categories', ()))
     for categ in category_list:
         result.extend(
             EngineRef(engine.name, categ)
             for engine in categories[categ]
             if (engine.name, categ) not in disabled_engines
-            and not (categ in content_categories and isolated_categories.intersection(engine.categories))
         )
     return result
 
@@ -177,8 +172,6 @@ def get_engineref_from_category_list(  # pylint: disable=invalid-name
 def parse_generic(preferences: Preferences, form: Dict[str, str], disabled_engines: List[str]) -> List[EngineRef]:
     query_engineref_list = []
     query_categories = []
-    search4xng_cfg = settings.get('search4xng', {})
-    engine_variants = search4xng_cfg.get('category_engine_variants', {})
 
     # set categories/engines
     explicit_engine_list = False
@@ -200,26 +193,8 @@ def parse_generic(preferences: Preferences, form: Dict[str, str], disabled_engin
     if explicit_engine_list:
         # explicit list of engines with the "engines" parameter in the form
         if query_categories:
-            # The compact Search4XNG selector shows providers, not every
-            # category-specific backend.  Route the chosen provider to its
-            # corresponding image, news or video engine when one exists.
-            selected_category = query_categories[0]
-            query_engineref_list = [
-                EngineRef(engine_variants.get(ref.name, {}).get(selected_category, ref.name), selected_category)
-                for ref in query_engineref_list
-            ]
-
-            # Keep the selected engine when it supports the selected tab.
-            # Otherwise fall back to engines that serve that category.
-            compatible_engines = [
-                engineref
-                for engineref in query_engineref_list
-                if any(category in engines[engineref.name].categories for category in query_categories)
-            ]
-            if compatible_engines:
-                query_engineref_list = compatible_engines
-            else:
-                query_engineref_list = get_engineref_from_category_list(query_categories, disabled_engines)
+            # add engines from referenced by the "categories" parameter and the "category_*"" parameters
+            query_engineref_list.extend(get_engineref_from_category_list(query_categories, disabled_engines))
     else:
         # no "engines" parameters in the form
         if not query_categories:
@@ -227,8 +202,8 @@ def parse_generic(preferences: Preferences, form: Dict[str, str], disabled_engin
             # -> get the categories from the preferences (the cookies or the settings)
             query_categories = get_selected_categories(preferences, None)
 
-        # Combine every enabled engine declared under the selected categories,
-        # which is SearXNG's native metasearch behavior.
+        # using all engines for that search, which are
+        # declared under the specific categories
         query_engineref_list.extend(get_engineref_from_category_list(query_categories, disabled_engines))
 
     return query_engineref_list

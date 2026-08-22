@@ -9,71 +9,11 @@ categories_as_tabs:
   news:
   music:
 
-search4xng:
-  primary_engines:
-    - bing
-    - bing images
-    - bing news
-    - bing videos
-    - google cse
-    - google images
-    - duckduckgo
-    - duckduckgo images
-    - duckduckgo news
-    - duckduckgo videos
-  category_engine_variants:
-    bing:
-      images: bing images
-      news: bing news
-      videos: bing videos
-    google cse:
-      images: google images
-    duckduckgo:
-      images: duckduckgo images
-      news: duckduckgo news
-      videos: duckduckgo videos
-  content_categories:
-    - general
-    - web
-    - images
-    - videos
-    - news
-    - music
-  isolated_categories:
-    - icons
-
 general:
   instance_name: "Search4XNG"
-  enable_metrics: false
-
-engines:
-  - name: google cse
-    categories: [general, videos, news, music]
-  - name: google images
-    disabled: false
-    weight: 100.0
-  - name: duckduckgo
-    disabled: false
-  - name: bing
-    disabled: false
 
 search:
-  safe_search: 0
-  autocomplete: ""
   favicon_resolver: "duckduckgo"
-  formats:
-    - html
-    - json
-
-server:
-  limiter: true
-  public_instance: false
-  image_proxy: true
-  method: "POST"
-
-outgoing:
-  request_timeout: 1.4
-  max_request_timeout: 1.4
 
 ui:
   default_theme: simple
@@ -82,18 +22,5 @@ ui:
   theme_args:
     simple_style: dark
 
-preferences:
-  lock:
-    - autocomplete
-
 valkey:
   url: valkey://valkey:6379/0
-
-enabled_plugins:
-  - "Basic Calculator"
-  - "Hash plugin"
-  - "Hostnames plugin"
-  - "Open Access DOI rewrite"
-  - "Self Information"
-  - "Tracker URL remover"
-  - "Unit converter plugin"
