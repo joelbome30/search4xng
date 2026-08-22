@@ -12,9 +12,26 @@ categories_as_tabs:
 search4xng:
   primary_engines:
     - bing
+    - bing images
+    - bing news
+    - bing videos
     - google cse
     - google cse images
     - duckduckgo
+    - duckduckgo images
+    - duckduckgo news
+    - duckduckgo videos
+  category_engine_variants:
+    bing:
+      images: bing images
+      news: bing news
+      videos: bing videos
+    google cse:
+      images: google cse images
+    duckduckgo:
+      images: duckduckgo images
+      news: duckduckgo news
+      videos: duckduckgo videos
   content_categories:
     - general
     - web

@@ -29,6 +29,7 @@
     {%- if result.resolution %}
       <span class="image_resolution">{{ result.resolution }}</span>
     {%- endif -%}
+    <span class="image_engines">{{ ", ".join(result.engines) }}</span>
     <span class="title">{{ result.title | striptags }}</span>
     <span class="source">{{- result.parsed_url.netloc -}}</span>
   </a>

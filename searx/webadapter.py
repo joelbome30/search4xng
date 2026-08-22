@@ -3,6 +3,7 @@
 
 from collections import defaultdict
 from typing import Dict, List, Optional, Tuple
+from searx import settings
 from searx.exceptions import SearxParameterException
 from searx.webutils import VALID_LANGUAGE_CODE
 from searx.query import RawTextQuery
@@ -193,6 +194,16 @@ def parse_generic(preferences: Preferences, form: Dict[str, str], disabled_engin
     if explicit_engine_list:
         # explicit list of engines with the "engines" parameter in the form
         if query_categories:
+            # The compact Search4XNG selector shows providers, not every
+            # category-specific backend.  Route the chosen provider to its
+            # corresponding image, news or video engine when one exists.
+            engine_variants = settings.get('search4xng', {}).get('category_engine_variants', {})
+            selected_category = query_categories[0]
+            query_engineref_list = [
+                EngineRef(engine_variants.get(ref.name, {}).get(selected_category, ref.name), selected_category)
+                for ref in query_engineref_list
+            ]
+
             # Keep the selected engine when it supports the selected tab.
             # Otherwise fall back to engines that serve that category.
             compatible_engines = [

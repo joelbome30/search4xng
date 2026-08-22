@@ -424,7 +424,16 @@ body.results_endpoint {
   }
 
   .engines {
-    display: none;
+    display: flex;
+    justify-content: flex-start;
+    gap: 6px;
+    margin-top: 4px;
+    color: #8ec07c;
+    font-size: 12px;
+
+    span {
+      margin: 0;
+    }
   }
 
   a.thumbnail_link {
@@ -446,6 +455,25 @@ body.results_endpoint {
       border: 0;
     }
   }
+}
+
+.result-images .image_engines {
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  z-index: 1;
+  width: auto;
+  max-width: calc(100% - 12px);
+  padding: 2px 5px;
+  overflow: hidden;
+  color: #ebdbb2;
+  font-size: 11px;
+  line-height: 16px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  background: rgb(29 32 33 / 88%);
+  border: 1px solid #504945;
+  border-radius: 2px;
 }
 
 body.results_endpoint #search4xng-timing {
