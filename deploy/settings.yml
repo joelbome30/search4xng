@@ -1,12 +1,13 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
-use_default_settings:
-  engines:
-    keep_only:
-      - google cse
-      - google cse images
-      - duckduckgo
-      - bing
+use_default_settings: true
+
+categories_as_tabs:
+  general:
+  images:
+  videos:
+  news:
+  music:
 
 general:
   instance_name: "Search4XNG"
