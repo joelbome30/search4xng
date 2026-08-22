@@ -67,6 +67,13 @@ body {
   height: auto;
 }
 
+body.results_endpoint {
+  box-sizing: border-box;
+  margin: 15px 7% 45px;
+  min-height: calc(100vh - 60px);
+  background: #1d2021 !important;
+}
+
 .search4xng-wordmark {
   display: inline-flex;
   align-items: baseline;
@@ -240,7 +247,8 @@ button.category_button {
 body.results_endpoint {
   #search_header {
     display: block;
-    padding: 22px 7% 0;
+    padding: 0;
+    background: transparent;
   }
 
   #search_logo {
@@ -248,7 +256,7 @@ body.results_endpoint {
   }
 
   #search_view {
-    width: min(55%, 700px);
+    width: 40%;
     padding: 0;
   }
 
@@ -264,8 +272,8 @@ body.results_endpoint {
   }
 
   #categories.search_categories {
-    width: min(55%, 700px);
-    margin-top: 6px;
+    width: 60%;
+    margin-top: 0;
   }
 
   #categories.search_categories #categories_container {
@@ -279,17 +287,18 @@ body.results_endpoint {
 
   .category_checkbox label,
   button.category_button {
-    padding: 6px 10px;
+    padding: 4px 10px;
   }
 
   .search_filters {
+    gap: 7px;
     width: auto;
-    margin-top: 8px;
+    margin: 0 0 7px;
   }
 
   #results {
-    width: min(55%, 700px);
-    margin-top: 10px;
+    width: 40%;
+    margin: 0;
     grid-template:
       "corrections" min-content
       "answers" min-content
@@ -314,8 +323,13 @@ body.results_endpoint {
     font-size: 18px;
 
     a {
-      color: #bdae93;
+      color: #bdae93 !important;
       font-size: 18px;
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
     }
   }
 
@@ -328,27 +342,40 @@ body.results_endpoint {
   }
 
   .url_header {
-    color: #928374;
+    color: #928374 !important;
     font-size: 15px;
+    text-decoration: none;
   }
 
   .engines {
-    color: #8ec07c;
-    font-size: 14px;
+    display: none;
   }
 
   a.thumbnail_link {
+    width: 160px;
     margin: 7px 0 7px 14px;
     float: right;
+    text-align: right;
 
     img.thumbnail {
-      width: 100px;
+      width: auto;
+      max-width: 160px;
       max-height: 100px;
       object-fit: contain;
       background: #282828;
       border: 1px solid #504945;
     }
   }
+}
+
+body.results_endpoint #search4xng-timing {
+  margin: 0 0 10px;
+}
+
+body.results_endpoint .result .favicon {
+  width: 16px;
+  height: 16px;
+  margin: 3px 7px 0 0;
 }
 
 article[data-vim-selected] {
@@ -437,7 +464,15 @@ footer {
   margin-top: 24vh;
 }
 
-@media screen and (width <= 75rem) {
+@media screen and (width <= 96.875rem) {
+  body.results_endpoint {
+    #search_view,
+    #categories.search_categories,
+    #results {
+      width: 60%;
+    }
+  }
+
   #results {
     grid-template:
       "corrections" min-content
@@ -474,6 +509,8 @@ footer {
   }
 
   body.results_endpoint {
+    margin: 15px;
+
     #search_view,
     #categories.search_categories,
     #results {
