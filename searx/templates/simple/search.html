@@ -7,7 +7,7 @@
       <div class="search_box">
         <input id="q" name="q" type="text" placeholder="{{ _('Search for...') }}" tabindex="1" autocomplete="off" autocapitalize="none" spellcheck="false" autocorrect="off" dir="auto" value="{{ q or '' }}">
         <button id="clear_search" type="reset" aria-label="{{ _('clear') }}" class="hide_if_nojs"><span>{{ icon_big('close') }}</span><span class="show_if_nojs">{{ _('clear') }}</span></button>
-        <button id="send_search" type="submit" {%- if search_on_category_select -%}name="category_{{ selected_categories[0]|replace(' ', '_') }}"{%- endif -%} aria-label="{{ _('search') }}"><span>{{ _('Search') }}</span></button>
+        <button id="send_search" type="submit" aria-label="{{ _('search') }}"><span>{{ _('Search') }}</span></button>
         <div class="autocomplete hide_if_nojs"><ul></ul></div>
       </div>
     </div>
@@ -15,7 +15,12 @@
     {% include 'simple/categories.html' %}
   </div>
   <div class="search_filters">
-    <label class="search_filter"><span>Motor</span><select aria-label="Motor"><option>Google CSE</option></select></label>
+    {%- set selected_engine = request.form.get('engines', request.args.get('engines', 'bing')) -%}
+    <label class="search_filter"><span>Motor</span><select name="engines" aria-label="Motor">
+      <option value="google cse"{{ ' selected' if selected_engine == 'google cse' else '' }}>Google CSE</option>
+      <option value="duckduckgo"{{ ' selected' if selected_engine == 'duckduckgo' else '' }}>DuckDuckGo</option>
+      <option value="bing"{{ ' selected' if selected_engine == 'bing' else '' }}>Bing</option>
+    </select></label>
     <label class="search_filter"><span>País</span><select aria-label="País"><option>Cualquier país</option></select></label>
     <label class="search_filter"><span>Si estás con tus padres</span>{% include 'simple/filters/safesearch.html' %}</label>
     <label class="search_filter"><span>Idioma</span>{% include 'simple/filters/languages.html' %}</label>

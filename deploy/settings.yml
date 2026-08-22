@@ -5,6 +5,8 @@ use_default_settings:
     keep_only:
       - google cse
       - google cse images
+      - duckduckgo
+      - bing
 
 general:
   instance_name: "Search4XNG"
@@ -13,6 +15,10 @@ general:
 engines:
   - name: google cse
     categories: [general, videos, news, music]
+  - name: duckduckgo
+    disabled: false
+  - name: bing
+    disabled: false
 
 search:
   safe_search: 0
