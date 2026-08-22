@@ -1,6 +1,10 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
-use_default_settings: true
+use_default_settings:
+  engines:
+    keep_only:
+      - google cse
+      - google cse images
 
 general:
   instance_name: "Search4XNG"
@@ -19,6 +23,10 @@ server:
   public_instance: false
   image_proxy: true
   method: "POST"
+
+outgoing:
+  request_timeout: 1.4
+  max_request_timeout: 1.4
 
 ui:
   default_theme: simple
