@@ -9,6 +9,20 @@ categories_as_tabs:
   news:
   music:
 
+search4xng:
+  primary_engines:
+    - bing
+    - google cse
+    - google cse images
+    - duckduckgo
+  content_categories:
+    - general
+    - web
+    - images
+    - videos
+    - news
+    - music
+
 general:
   instance_name: "Search4XNG"
   enable_metrics: false

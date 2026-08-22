@@ -228,6 +228,19 @@ def update_engine_attributes(engine: "Engine | types.ModuleType", engine_data: d
         if not hasattr(engine, arg_name):
             setattr(engine, arg_name, copy.deepcopy(arg_value))
 
+    # Search4XNG keeps the complete SearXNG engine catalog available in the
+    # preferences while enabling only a small, low-latency set of ordinary
+    # search providers by default.  Utility engines (translation, currency,
+    # dictionaries, and other non-content categories) retain their upstream
+    # default state.
+    search4xng_cfg = settings.get('search4xng', {})
+    primary_engines = set(search4xng_cfg.get('primary_engines', ()))
+    content_categories = set(search4xng_cfg.get('content_categories', ()))
+    if primary_engines and engine.name not in primary_engines:
+        auxiliary_categories = set(engine.categories) - content_categories
+        if not auxiliary_categories:
+            engine.disabled = True
+
     if ENGINE_TRAITS.get(engine.name, {}).get("languages") and not engine.language_support:
         raise ValueError(f"engine '{engine.name}' ({engine_data['engine']}) language_support should be set to True")
 
