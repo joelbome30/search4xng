@@ -223,21 +223,9 @@ def parse_generic(preferences: Preferences, form: Dict[str, str], disabled_engin
             # -> get the categories from the preferences (the cookies or the settings)
             query_categories = get_selected_categories(preferences, None)
 
-        # using all engines for that search, which are
-        default_engine = search4xng_cfg.get('default_engine')
-        content_categories = set(search4xng_cfg.get('content_categories', ()))
-        for category in query_categories:
-            mapped_engine = engine_variants.get(default_engine, {}).get(category, default_engine)
-            if (
-                default_engine
-                and category in content_categories
-                and mapped_engine in engines
-                and category in engines[mapped_engine].categories
-            ):
-                query_engineref_list.append(EngineRef(mapped_engine, category))
-            else:
-                # Utility categories continue to use their configured engines.
-                query_engineref_list.extend(get_engineref_from_category_list([category], disabled_engines))
+        # Combine every enabled engine declared under the selected categories,
+        # which is SearXNG's native metasearch behavior.
+        query_engineref_list.extend(get_engineref_from_category_list(query_categories, disabled_engines))
 
     return query_engineref_list
 

@@ -15,8 +15,9 @@
     {% include 'simple/categories.html' %}
   </div>
   <div class="search_filters">
-    {%- set selected_engine = request.form.get('engines', request.args.get('engines', 'google cse')) -%}
+    {%- set selected_engine = request.form.get('engines', request.args.get('engines', '')) -%}
     <label class="search_filter"><span>Motor</span><select name="engines" aria-label="Motor">
+      <option value=""{{ ' selected' if selected_engine == '' else '' }}>Combinados</option>
       <option value="google cse"{{ ' selected' if selected_engine == 'google cse' else '' }}>Google CSE</option>
       <option value="bing"{{ ' selected' if selected_engine == 'bing' else '' }}>Bing</option>
       <option value="duckduckgo"{{ ' selected' if selected_engine == 'duckduckgo' else '' }}>DuckDuckGo</option>
