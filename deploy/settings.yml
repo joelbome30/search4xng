@@ -51,7 +51,7 @@ engines:
     categories: [general, videos, news, music]
   - name: google images
     disabled: false
-    weight: 8.0
+    weight: 100.0
   - name: duckduckgo
     disabled: false
   - name: bing
