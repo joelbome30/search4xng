@@ -3,6 +3,9 @@
 // Search4XNG skin, inspired by 4get's compact Gruvbox interface.
 // 4get reference: https://git.lolcat.ca/lolcat/4get
 
+// Theme overrides intentionally repeat upstream selectors at higher priority.
+// stylelint-disable no-descending-specificity
+
 :root,
 html.theme-auto,
 html.theme-dark,
@@ -87,10 +90,11 @@ body {
 
   sup {
     position: relative;
-    top: -0.45em;
-    margin-left: -0.08em;
-    font-size: 0.42em;
-    line-height: 0;
+    top: -1.7em;
+    margin-left: -0.06em;
+    font-size: 0.34em;
+    line-height: 1;
+    vertical-align: baseline;
   }
 }
 
@@ -191,6 +195,14 @@ button.category_button {
   border: 0;
 }
 
+.search_filter {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  color: #928374;
+  font-size: 13px;
+}
+
 .search_filters select {
   appearance: auto;
   width: auto;
@@ -216,6 +228,79 @@ button.category_button {
     "pagination sidebar" min-content
     / minmax(28rem, 2fr) minmax(18rem, 1fr);
   gap: 0 30px;
+}
+
+#search4xng-timing {
+  margin: 8px 7% 0;
+  color: #bdae93;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+body.results_endpoint {
+  #search_header {
+    display: block;
+    padding: 22px 7% 0;
+  }
+
+  #search_logo {
+    display: none;
+  }
+
+  #search_view {
+    width: min(55%, 700px);
+    padding: 0;
+  }
+
+  .search_box {
+    max-width: none;
+  }
+
+  #send_search {
+    min-width: 84px;
+    padding: 0 10px;
+    color: #bdae93;
+    font-size: 16px;
+  }
+
+  #categories.search_categories {
+    width: min(55%, 700px);
+    margin-top: 6px;
+  }
+
+  #categories.search_categories #categories_container {
+    flex-wrap: nowrap;
+  }
+
+  .category_checkbox,
+  .category_button {
+    margin: 0;
+  }
+
+  .category_checkbox label,
+  button.category_button {
+    padding: 6px 10px;
+  }
+
+  .search_filters {
+    width: auto;
+    margin-top: 8px;
+  }
+
+  #results {
+    width: min(55%, 700px);
+    margin-top: 10px;
+    grid-template:
+      "corrections" min-content
+      "answers" min-content
+      "urls" 1fr
+      "pagination" min-content
+      / minmax(0, 1fr);
+  }
+
+  #sidebar {
+    display: none;
+  }
 }
 
 .result {
@@ -386,6 +471,20 @@ footer {
 
   #results {
     margin: 10px 15px 0;
+  }
+
+  body.results_endpoint {
+    #search_view,
+    #categories.search_categories,
+    #results {
+      width: 100%;
+    }
+
+    .search_filters,
+    #search4xng-timing {
+      margin-right: 15px;
+      margin-left: 15px;
+    }
   }
 
   #search_logo .search4xng-wordmark {

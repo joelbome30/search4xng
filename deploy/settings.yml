@@ -35,6 +35,10 @@ ui:
   theme_args:
     simple_style: dark
 
+preferences:
+  lock:
+    - autocomplete
+
 valkey:
   url: valkey://valkey:6379/0
 
