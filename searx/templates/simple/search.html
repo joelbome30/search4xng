@@ -15,10 +15,14 @@
     {% include 'simple/categories.html' %}
   </div>
   <div class="search_filters">
-    <label class="search_filter"><span>Idioma</span>{% include 'simple/filters/languages.html' %}</label>
-    <label class="search_filter"><span>Fecha</span>{% include 'simple/filters/time_range.html' %}</label>
+    <label class="search_filter"><span>Motor</span><select aria-label="Motor"><option>Google CSE</option></select></label>
+    <label class="search_filter"><span>País</span><select aria-label="País"><option>Cualquier país</option></select></label>
     <label class="search_filter"><span>Si estás con tus padres</span>{% include 'simple/filters/safesearch.html' %}</label>
+    <label class="search_filter"><span>Idioma</span>{% include 'simple/filters/languages.html' %}</label>
+    <label class="search_filter"><span>Ordenar</span><select aria-label="Ordenar"><option>Relevancia</option></select></label>
+    <label class="search_filter"><span>Quitar repetidos</span><select aria-label="Quitar resultados repetidos"><option>Sí</option></select></label>
   </div>
+  <input type="hidden" name="time_range" value="{{ time_range or '' }}">
   <input type="hidden" name="theme" value="{{ theme }}" >
   {% if timeout_limit %}<input type="hidden" name="timeout_limit" value="{{ timeout_limit|e }}" >{% endif %}
 </form>

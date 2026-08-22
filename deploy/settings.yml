@@ -10,6 +10,10 @@ general:
   instance_name: "Search4XNG"
   enable_metrics: false
 
+engines:
+  - name: google cse
+    categories: [general, videos, news, music]
+
 search:
   safe_search: 0
   autocomplete: ""
