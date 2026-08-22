@@ -26,10 +26,6 @@
 // to center the results
 @import "style-center.less";
 
-// Search4XNG's 4get-inspired skin. Keep this import last so the skin can
-// override the upstream simple theme without making future rebases painful.
-@import "search4xng.less";
-
 // sxng-icon-set
 .sxng-icon-set {
   display: inline-block;
@@ -1169,3 +1165,7 @@ pre code {
 @import "result_types/paper.less";
 @import "result_types/file.less";
 @import "result_types/image.less";
+
+// Search4XNG's 4get-inspired skin. This must remain the final import so the
+// skin overrides upstream simple-theme rules without complicating rebases.
+@import "search4xng.less";

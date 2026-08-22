@@ -2,7 +2,10 @@
 {% from 'simple/icons.html' import icon_big %}
 {% block content %}
 <div class="index">
-    <div class="title"><h1>search4xng</h1></div>
+    <div class="title">
+      <h1 hidden>Search4XNG</h1>
+      {% include 'simple/search4xng-wordmark.html' without context %}
+    </div>
     {% include 'simple/simple_search.html' %}
 </div>
 {% endblock %}

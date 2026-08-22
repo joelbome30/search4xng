@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="endpoint" content="{{ endpoint }}">
-  <meta name="description" content="Search4XNG — SearXNG con una interfaz inspirada en 4get">
-  <meta name="keywords" content="Search4XNG, SearXNG, 4get, search engine, metasearch">
+  <meta name="description" content="Search4XNG — metabuscador privado con una interfaz inspirada en 4get">
+  <meta name="keywords" content="Search4XNG, 4get, search engine, metasearch">
   <meta name="generator" content="searxng/{{ searxng_version }}">
   <meta name="referrer" content="no-referrer">
   <meta name="robots" content="noarchive">
@@ -66,7 +66,7 @@
   </main>
   <footer>
     <p>
-    Search4XNG — {{ _('Powered by') }} <a href="{{ url_for('info', pagename='about') }}">SearXNG</a> {{ searxng_version }}<br>
+    Search4XNG {{ searxng_version }} — {{ _('a privacy-respecting, open metasearch engine') }}<br>
         <a href="{{ searxng_git_url }}">{{ _('Source code') }}</a>
         | <a href="{{ get_setting('brand.issue_url') }}">{{ _('Issue tracker') }}</a>
         {% if enable_metrics %}| <a href="{{ url_for('stats') }}">{{ _('Engine stats') }}</a>{% endif %}
