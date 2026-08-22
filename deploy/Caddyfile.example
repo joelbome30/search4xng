@@ -1,0 +1,6 @@
+# Replace search.example.com with your domain and point its DNS A/AAAA record
+# at the VM. Caddy obtains and renews the HTTPS certificate automatically.
+search.example.com {
+    encode zstd gzip
+    reverse_proxy 127.0.0.1:8080
+}

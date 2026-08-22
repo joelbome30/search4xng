@@ -1,0 +1,30 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
+name: search4xng
+
+services:
+  search4xng:
+    image: localhost/searxng/searxng:latest
+    container_name: search4xng
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:8080:8080"
+    environment:
+      SEARXNG_SECRET: "${SEARXNG_SECRET:?Define SEARXNG_SECRET in deploy/.env}"
+    volumes:
+      - ./settings.yml:/etc/searxng/settings.yml:ro
+      - search4xng-cache:/var/cache/searxng
+    depends_on:
+      - valkey
+
+  valkey:
+    image: docker.io/valkey/valkey:9-alpine
+    container_name: search4xng-valkey
+    restart: unless-stopped
+    command: valkey-server --save 30 1 --loglevel warning
+    volumes:
+      - valkey-data:/data
+
+volumes:
+  search4xng-cache:
+  valkey-data:

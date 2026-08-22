@@ -1,0 +1,276 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
+//
+// Search4XNG skin, inspired by 4get's compact Gruvbox interface.
+// 4get reference: https://git.lolcat.ca/lolcat/4get
+
+:root,
+html.theme-auto,
+html.theme-dark,
+html.theme-black {
+  --color-base-background: #1d2021;
+  --color-base-background-mobile: #1d2021;
+  --color-base-font: #a89984;
+  --color-base-font-rgb: 168, 153, 132;
+  --color-header-background: #1d2021;
+  --color-header-border: #504945;
+  --color-footer-background: #1d2021;
+  --color-footer-border: #504945;
+  --color-search-background: #282828;
+  --color-search-font: #bdae93;
+  --color-search-border: #504945;
+  --color-search-shadow: none;
+  --color-search-background-hover: #3c3836;
+  --color-categories-item-selected-font: #bdae93;
+  --color-categories-item-border-selected: #bdae93;
+  --color-url-font: #bdae93;
+  --color-url-visited-font: #928374;
+  --color-result-background: #1d2021;
+  --color-result-border: #504945;
+  --color-result-url-font: #928374;
+  --color-result-link-font: #bdae93;
+  --color-result-link-font-highlight: #ebdbb2;
+  --color-result-link-visited-font: #928374;
+  --color-result-description-highlight-font: #ebdbb2;
+  --color-result-publishdate-font: #928374;
+  --color-result-engines-font: #8ec07c;
+  --color-result-vim-selected: #282828;
+  --color-result-vim-arrow: #bdae93;
+  --color-sidebar-background: #1d2021;
+  --color-sidebar-font: #a89984;
+  --color-sidebar-border: #504945;
+  --color-btn-background: #282828;
+  --color-btn-font: #bdae93;
+  --color-autocomplete-background: #282828;
+  --color-autocomplete-background-hover: #3c3836;
+  --color-autocomplete-border: #928374;
+  --color-autocomplete-font: #bdae93;
+}
+
+html {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  line-height: 1.375;
+}
+
+body {
+  min-height: 100vh;
+  height: auto;
+}
+
+#search4xng-brand {
+  color: #bdae93;
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  white-space: nowrap;
+}
+
+#search_header {
+  padding: 15px 7% 0;
+  border-bottom: 0;
+  gap: 10px 15px;
+  grid-template-columns: minmax(7rem, 14rem) minmax(18rem, 42rem);
+  grid-template-areas:
+    "logo search"
+    "spacer categories";
+}
+
+#search_logo {
+  justify-content: flex-start;
+  padding: 0;
+}
+
+#search_view,
+.search_box {
+  width: 100%;
+}
+
+.search_box {
+  min-height: 36px;
+  border: 1px solid #504945;
+  border-radius: 2px;
+  box-shadow: none;
+
+  &:focus-within {
+    border-color: #928374;
+    box-shadow: none;
+  }
+}
+
+#q,
+#send_search,
+#clear_search {
+  min-height: 36px;
+}
+
+#send_search,
+#clear_search {
+  border-radius: 0;
+}
+
+.category_checkbox,
+.category_button {
+  margin-right: 0.4rem;
+}
+
+.category_checkbox label,
+button.category_button {
+  padding: 4px 10px;
+  color: #bdae93;
+}
+
+.search_filters {
+  padding: 7px 7% 0;
+  background: #1d2021;
+  border: 0;
+}
+
+.search_filters select {
+  border-color: #504945;
+  border-radius: 2px;
+  background-color: #1d2021;
+}
+
+#results {
+  width: auto;
+  max-width: 2000px;
+  margin: 10px 7% 0;
+  grid-template:
+    "corrections sidebar" min-content
+    "answers sidebar" min-content
+    "urls sidebar" 1fr
+    "pagination sidebar" min-content
+    / minmax(28rem, 2fr) minmax(18rem, 1fr);
+  gap: 0 30px;
+}
+
+.result {
+  margin: 0 0 30px;
+  padding: 0;
+  border-left: 0;
+  background: transparent;
+
+  h3 {
+    margin: 7px 0;
+    font-size: 18px;
+
+    a {
+      color: #bdae93;
+      font-size: 18px;
+    }
+  }
+
+  .content,
+  .stat {
+    max-width: none;
+    color: #a89984;
+    font-size: 16px;
+    line-height: 22px;
+  }
+
+  .url_header {
+    color: #928374;
+    font-size: 15px;
+  }
+
+  .engines {
+    color: #8ec07c;
+    font-size: 14px;
+  }
+}
+
+article[data-vim-selected] {
+  padding-left: 10px;
+  background: #282828;
+  border-left: 2px solid #bdae93;
+  border-radius: 2px;
+}
+
+#sidebar > *,
+.infobox,
+#answers > *,
+#suggestions,
+#corrections {
+  padding: 10px;
+  background: transparent;
+  border: 1px dashed #504945;
+  border-radius: 0;
+}
+
+#pagination {
+  margin: 0 0 30px;
+
+  button,
+  a {
+    border: 1px solid #504945;
+    border-radius: 2px;
+    background: #1d2021;
+    color: #bdae93;
+  }
+}
+
+footer {
+  min-height: auto;
+  padding: 1rem 7%;
+  text-align: left;
+}
+
+.index {
+  .title {
+    min-height: auto;
+    margin: 0 auto 17px;
+    background: none;
+  }
+
+  h1 {
+    visibility: visible;
+    margin: 0;
+    color: #bdae93;
+    font-size: clamp(2.8rem, 8vw, 5rem);
+    letter-spacing: -0.08em;
+  }
+
+  #search_view {
+    max-width: 620px;
+    margin: auto;
+  }
+}
+
+#main_index {
+  margin-top: 24vh;
+}
+
+@media screen and (width <= 75rem) {
+  #results {
+    grid-template:
+      "corrections" min-content
+      "answers" min-content
+      "urls" 1fr
+      "sidebar" min-content
+      "pagination" min-content
+      / minmax(0, 1fr);
+  }
+}
+
+@media screen and (width <= 50rem) {
+  #search_header {
+    padding: 12px 15px 0;
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "logo"
+      "search"
+      "categories";
+  }
+
+  .search_filters {
+    padding: 7px 15px 0;
+  }
+
+  #results {
+    margin: 10px 15px 0;
+  }
+
+  #search4xng-brand {
+    font-size: 1rem;
+  }
+}
