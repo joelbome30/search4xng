@@ -193,8 +193,17 @@ def parse_generic(preferences: Preferences, form: Dict[str, str], disabled_engin
     if explicit_engine_list:
         # explicit list of engines with the "engines" parameter in the form
         if query_categories:
-            # add engines from referenced by the "categories" parameter and the "category_*"" parameters
-            query_engineref_list.extend(get_engineref_from_category_list(query_categories, disabled_engines))
+            # Keep the selected engine when it supports the selected tab.
+            # Otherwise fall back to engines that serve that category.
+            compatible_engines = [
+                engineref
+                for engineref in query_engineref_list
+                if any(category in engines[engineref.name].categories for category in query_categories)
+            ]
+            if compatible_engines:
+                query_engineref_list = compatible_engines
+            else:
+                query_engineref_list = get_engineref_from_category_list(query_categories, disabled_engines)
     else:
         # no "engines" parameters in the form
         if not query_categories:

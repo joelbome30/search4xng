@@ -35,6 +35,7 @@
                     <div class="category_name">{{- 'Web' if category == 'general' else _(category) -}}</div>{{- '' -}}
                 </button>{{- '' -}}
             {%- endfor -%}
+            <input name="categories" id="selected-categories" type="hidden" />
             {{- '\n' -}}
         {%- endif -%}
     </div>{{- '' -}}
