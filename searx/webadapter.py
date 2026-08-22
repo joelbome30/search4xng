@@ -173,6 +173,8 @@ def get_engineref_from_category_list(  # pylint: disable=invalid-name
 def parse_generic(preferences: Preferences, form: Dict[str, str], disabled_engines: List[str]) -> List[EngineRef]:
     query_engineref_list = []
     query_categories = []
+    search4xng_cfg = settings.get('search4xng', {})
+    engine_variants = search4xng_cfg.get('category_engine_variants', {})
 
     # set categories/engines
     explicit_engine_list = False
@@ -197,7 +199,6 @@ def parse_generic(preferences: Preferences, form: Dict[str, str], disabled_engin
             # The compact Search4XNG selector shows providers, not every
             # category-specific backend.  Route the chosen provider to its
             # corresponding image, news or video engine when one exists.
-            engine_variants = settings.get('search4xng', {}).get('category_engine_variants', {})
             selected_category = query_categories[0]
             query_engineref_list = [
                 EngineRef(engine_variants.get(ref.name, {}).get(selected_category, ref.name), selected_category)
@@ -223,8 +224,20 @@ def parse_generic(preferences: Preferences, form: Dict[str, str], disabled_engin
             query_categories = get_selected_categories(preferences, None)
 
         # using all engines for that search, which are
-        # declared under the specific categories
-        query_engineref_list.extend(get_engineref_from_category_list(query_categories, disabled_engines))
+        default_engine = search4xng_cfg.get('default_engine')
+        content_categories = set(search4xng_cfg.get('content_categories', ()))
+        for category in query_categories:
+            mapped_engine = engine_variants.get(default_engine, {}).get(category, default_engine)
+            if (
+                default_engine
+                and category in content_categories
+                and mapped_engine in engines
+                and category in engines[mapped_engine].categories
+            ):
+                query_engineref_list.append(EngineRef(mapped_engine, category))
+            else:
+                # Utility categories continue to use their configured engines.
+                query_engineref_list.extend(get_engineref_from_category_list([category], disabled_engines))
 
     return query_engineref_list
 

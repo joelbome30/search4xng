@@ -10,6 +10,7 @@ categories_as_tabs:
   music:
 
 search4xng:
+  default_engine: google cse
   primary_engines:
     - bing
     - bing images
